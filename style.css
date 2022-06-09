@@ -1,0 +1,194 @@
+:root {
+  font-size: 62.5%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(45deg, rgb(0, 140, 255), rgb(65, 211, 204));
+  font-family: sans-serif;
+}
+
+li {
+  list-style: none;
+}
+
+.navigation {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+
+  width: 12rem;
+  height: 6rem;
+  background: white;
+  display: flex;
+  border-radius: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+
+  transition: width 0.5s, height 0.5s;
+  transition-delay: 0.8s, 0.5s;
+}
+
+.navigation.active {
+  width: 30rem;
+  height: 38rem;
+
+  /* Invertendo as transições - delay do start*/
+  transition-delay: 0.5s, 0.8s;
+}
+
+.navigation .user {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6rem;
+  height: 6rem;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  /* Delay de saida */
+  transition-delay: 0s;
+  transition: opacity 1s;
+}
+
+.navigation.active .user {
+  width: calc(100% - 6rem);
+}
+
+/* ------User name opacity transition */
+.navigation p.user-name {
+  /* Position tambem absoluto, para animação do margin ser possivel, pois o estado inicial dela será dentro da imagem de perfil*/
+  position: absolute;
+  /* font-weight: bold; */
+  opacity: 0;
+  font-size: 1.6rem;
+
+  /* end da animação. saida do user name para estado inativo */
+  transition: 0s;
+  transition-delay: 0s;
+}
+
+.navigation.active p.user-name {
+  /* start da animação, entrada do user-name para estado ativo*/
+  opacity: 1;
+  transition: margin 1s, opacity 2s;
+  transition-delay: 1s, 1s;
+
+  /* Como o estado inicial tambem esta absoluto, é possivel criar a animação de "saida da imagem" */
+  margin-left: 6rem;
+}
+
+.navigation .user .img-box {
+  /* Caixa que vai ter as propiedades para definir o tamanho da imagem */
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: black;
+  overflow: hidden;
+  border: 1rem solid white;
+}
+
+.navigation .user img {
+  /* Imagem vai ocupar apenas o tamnho total da caixa */
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.navigation .menu-button {
+  position: absolute;
+
+  top: 0;
+  right: 0;
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.navigation .menu-button::before {
+  position: absolute;
+  content: '';
+  height: 2px;
+  width: 50%;
+  background: black;
+  box-shadow: 0 10px black;
+  transform: translateY(-1rem);
+  transition: 0.5s;
+}
+
+.navigation .menu-button::after {
+  position: absolute;
+  content: '';
+  height: 2px;
+  width: 50%;
+  background: black;
+  transform: translateY(1rem);
+  transition: 0.5s;
+}
+
+.navigation.active .menu-button::before {
+  transform: translateY(0) rotate(-45deg);
+  box-shadow: 0 0 black;
+}
+
+.navigation.active .menu-button::after {
+  transform: rotate(45deg);
+}
+
+/* ----------menu list----------- */
+.navigation .menu {
+  transition: opacity 1s;
+  opacity: 0;
+  /* Diminui o tamanho do height, para usar o overflow hidde, eliminando todo o ul (sem estar ativado) */
+  height: 0;
+  overflow: hidden;
+}
+
+.navigation.active .menu {
+  transition-delay: 1s;
+  opacity: 1;
+  height: auto;
+
+  position: absolute;
+  width: 100%;
+  top: 6rem;
+  padding: 3rem 2rem;
+  height: calc(100% - 6rem);
+
+  border-top: 1px solid rgba(161, 161, 161, 0.377);
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  font-size: 2rem;
+}
+
+.navigation.active .menu li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navigation.active ion-icon {
+  font-size: 2.2rem;
+}
+
+.navigation.active .menu li:hover {
+  color: rgb(0, 140, 255);
+  cursor: pointer;
+}
